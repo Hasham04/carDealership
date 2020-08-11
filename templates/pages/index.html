@@ -1,0 +1,211 @@
+{% extends 'base.html' %} 
+{% load humanize %}
+{% block title %} | Welcome {% endblock %}
+{% block content %}
+
+  <section id="showcase">
+    <div class="container text-center">
+      <div class="home-search p-5">
+        <div class="overlay p-5">
+          <h1 class="display-4 mb-4">
+              CARS THAT FIT YOUR BUDGET
+          </h1>
+          <p class="lead">Everything you need in one place.  
+              Car buying at its easiest.</p>
+          <p>Control Your Car-Buying Experience</p>
+          <div class="search">
+            <form action="{% url 'search' %}">
+              <!-- Form Row 1 -->
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Keywords</label>
+                  <input type="text" name="keywords" class="form-control" placeholder="Keyword (Pool, Garage, etc)">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Address</label>
+                  <input type="text" name="address" class="form-control" placeholder="Address">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Make</label>
+                  <select name="make" class="form-control">
+                    <option selected="true" disabled="disabled">Make (All)</option>
+                    {% for key,value in  make_choices.items %}
+                      <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <!-- Form Row 2 -->
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label class="sr-only">Body Type</label>
+                  <select name="bodyType" class="form-control">
+                    <option selected="true" disabled="disabled">Body Type (All)</option>
+                    {% for key, value in bodyType_choices.items %}
+                      <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <select name="price" class="form-control" id="type">
+                    <option selected="true" disabled="disabled">Max Price (Any)</option>
+                    {% for key, value in price_choices.items %}
+                      <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+              </div>
+              <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<br>
+
+  {% include 'partials/_alerts.html' %}
+  <!-- data-aos="fade-up" data-aos-duration="750" -->
+<!--   <section id="listings" class="py-5">
+    <div class="container">
+      <h3 class="text-center mb-3"><u>Latest Listings</u></h3>
+      <div class="row" >
+          {% if cars %}
+            {% for car in cars %}
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card listing-preview">
+                  <img class="card-img-top" src="{{car.photo_main.url}}" alt="">
+                  <div class="card-img-overlay">
+                    <h2>
+                      <span class="badge badge-secondary text-white">${{ car.price | intcomma }}</span>
+                    </h2>
+                  </div>
+                  <div class="card-body ">
+                    <div class="listing-heading text-center">
+                      <h4 class="text-primary">{{car.title}}</h4>
+                      <p>
+                        <i class="fas fa-map-marker text-secondary"></i> {{ car.address }}</p>
+                    </div>
+                    <hr>
+                    <div class="row py-2 text-secondary">
+                      <div class="col-6">
+                        <i class="fas fa-industry"></i> {{ car.make  }}</div>
+                      <div class="col-6">
+                        <i class="fas fa-car"></i> {{ car.bodyType }}</div>
+                    </div>
+                    <div class="row py-2 text-secondary">
+                      <div class="col-6">
+                        <i class="fas fa-tachometer-alt"></i> {{ car.mileage }} mi</div>
+                      <div class="col-6">
+                        <i class="fas fa-cog"></i> {{ car.driveTrain }}</div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row py-2 text-secondary text-center">
+                      <div class="col-6">
+                        <i class="fas fa-user"></i> {{ car.salesman }}</div>
+                      <div class="col-6">
+                        <i class="fas fa-clock"></i>{{car.list_date | timesince}}</div>
+                      </div>
+                      <a href="{% url 'car' car.id %}"" class="btn btn-primary btn-block">More Info</a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="col-md-12">
+              <p>No cars Available</p>
+            </div>
+          {% endif %}
+      </div>
+    </div>
+  </section> -->
+
+  <section id="listings" class="py-5">
+    <div class="container">
+      <h3 class="text-center mb-3">Latest Listings</h3>
+      <div class="row">
+          {% if cars %}
+            {% for car in cars %}
+              <div class="col-md-6 col-lg-4 mb-4">
+                <a href="{% url 'car' car.id %}" style="text-decoration:none;">
+                <div class="card listing-preview">
+                  <img class="card-img-top" src="{{car.photo_main.url}}" alt="">
+                  <div class="card-img-overlay">
+                    <h2>
+                      <span class="badge badge-secondary text-white">$ {{car.price | intcomma }}</span>
+                    </h2>
+                  </div>
+                  <div class="card-body">
+                    <div class="listing-heading text-center">
+                      <h4 class="text-primary">{{car.title}}</h4>
+                      <p>
+                        <i class="fas fa-map-marker text-secondary"></i> {{ car.address }}</p>
+                    </div>
+                    <hr>
+                    <div class="row py-2 text-secondary">
+                      <div class="col-7">
+                        <i class="fas fa-industry"></i> {{ car.make  }}</div>
+                      <div class="col-5">
+                        <i class="fas fa-car"></i> {{ car.bodyType }}</div>
+                    </div>
+                    <div class="row py-2 text-secondary">
+                      <div class="col-7">
+                        <i class="fas fa-tachometer-alt"></i> {{ car.mileage }} mi</div>
+                      <div class="col-5">
+                        <i class="fas fa-cog"></i> {{ car.driveTrain }}</div>
+                    </div>
+                    <hr>
+                    <div class="py-2 text-secondary">
+                      <div class="text-center">
+                        <i class="fas fa-user"></i> Salesperson: {{ car.salesman }}</div>
+                    </div>
+                  </div>
+                </div>
+                </a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="col-md-12">
+              <p>No Cars Available</p>
+            </div>
+          {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="py-5 bg-secondary text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4">
+          <i class="fas fa-comment fa-4x mr-4"></i>
+          <hr>
+          <h3>Consulting Services</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+            hic dignissimos ratione ea quae.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-home fa-4x mr-4"></i>
+          <hr>
+          <h3>Car Maintenance</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+            hic dignissimos ratione ea quae.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-suitcase fa-4x mr-4"></i>
+          <hr>
+          <h3>Renting and Selling</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+            hic dignissimos ratione ea quae.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+{% endblock %}

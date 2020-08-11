@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %} | Browse Cars {% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+
+</style>
+
+  <section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Browse Our Cars</h1>
+          <p class="lead">Get the Actual Price for the Vehicle You Want!</p>
+          <p class="lead">You get an upfront, personalized price from a dealer online, including manufacturer incentives and discounts. You know what you’ll pay for your new car before you head to the dealership</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> Browse Cars</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- cars -->
+  <section id="listings" class="py-5">
+    <div class="container">
+      <h3 class="text-center mb-3">Latest Listings</h3>
+      <div class="row">
+          {% if cars %}
+            {% for car in cars %}
+              <div class="col-md-6 col-lg-4 mb-4">
+                <a href="{% url 'car' car.id %}" style="text-decoration:none;">
+                <div class="card listing-preview">
+                  <img class="card-img-top" src="{{car.photo_main.url}}" alt="">
+                  <div class="card-img-overlay">
+                    <h2>
+                      <span class="badge badge-secondary text-white">$ {{car.price | intcomma }}</span>
+                    </h2>
+                  </div>
+                  <div class="card-body">
+                    <div class="listing-heading text-center">
+                      <h4 class="text-primary">{{car.title}}</h4>
+                      <p>
+                        <i class="fas fa-map-marker text-secondary"></i> {{ car.address }}</p>
+                    </div>
+                    <hr>
+                    <div class="row py-2 text-secondary">
+                      <div class="col-7">
+                        <i class="fas fa-industry"></i> {{ car.make  }}</div>
+                      <div class="col-5">
+                        <i class="fas fa-car"></i> {{ car.bodyType }}</div>
+                    </div>
+                    <div class="row py-2 text-secondary">
+                      <div class="col-7">
+                        <i class="fas fa-tachometer-alt"></i> {{ car.mileage }} mi</div>
+                      <div class="col-5">
+                        <i class="fas fa-cog"></i> {{ car.driveTrain }}</div>
+                    </div>
+                    <hr>
+                    <div class=" py-2 text-secondary text-center">
+                      
+                        <i class="fas fa-user"></i> Salesperson: {{ car.salesman }}
+
+                     
+                    </div>
+                  </div>
+                </div>
+              </a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="col-md-12">
+              <p>No Cars Available</p>
+            </div>
+          {% endif %}
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            {% if cars.has_other_pages %}
+              <ul class="pagination">
+                {% if cars.has_previous %}
+
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{cars.previous_page_number}}">&laquo;</a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link">&laquo;</a>
+                  </li>
+                {% endif %}
+                {% for i in cars.paginator.page_range %}
+                  {% if cars.number == i %}
+                    <li class="page-item active">
+                      <a class="page-link">{{i}}</a>
+                    </li>
+                  {% else %}
+                    <li class="page-item">
+                      <a href="?page={{i}}" class="page-link">{{i}}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+                {% if cars.has_next %}
+                  <li class="page-item">
+                    <a href="?page={{cars.next_page_number}}" class="page-link">&raquo;</a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a class="page-link">&raquo;</a>
+                  </li>
+                {% endif %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+
+
+
+
+

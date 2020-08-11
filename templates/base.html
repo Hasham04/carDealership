@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	    <link rel="stylesheet" href="{% static 'css/all.css' %} ">
+  	  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %} ">
+  	  <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
+      <link rel="stylesheet" href=" {% static 'css/lightbox.min.css' %} ">
+      <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+	<title> Joe's Exotic Cars {% block title %}{% endblock %}</title>
+</head>
+  <style type="text/css">
+    body{
+      background-color: #e5e4e2;
+    }
+  .card {
+      /* JUST TO LOOK COOL */
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+  transition: all .3s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
+  transform: translate3d(0px, -5px, 0px);
+}
+  </style>
+<body>
+
+<!-- Top Bar -->
+	{% include 'partials/_navbar.html' %}
+  {% block content %}
+  {% endblock %}
+	{% include 'partials/_footer.html' %}
+  <!-- Navbar -->
+
+
+
+
+ 
+  <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %} "></script>
+  <script src="{% static 'js/lightbox.min.js' %} "></script>
+  <script src="{% static 'js/main.js' %} "></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>

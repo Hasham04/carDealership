@@ -1,0 +1,11 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% block branding %}
+ 	<img src="{% static 'img/logo.png' %}" alt ="Joe's Exotic Cars" height="50" width="80" class="brand_img">
+ 	<p>Admin Area</p>
+{% endblock %}
+
+{% block extrastyle %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
