@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 ]
 
-DEFAULT_FROM_EMAIL = 'hasham610@gmail.com'
-NOTIFY_EMAIL = 'hasham610@gmail.com'
+DEFAULT_FROM_EMAIL = ''
+NOTIFY_EMAIL = ''
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -149,6 +149,6 @@ MESSAGE_TAGS ={
 
 # EMAIL_HOST='smtp.gmail.com'
 # EMAIL_PORT= 587
-# EMAI_HOST_USER='hasham610@gmail.com'
-# EMAIL_HOST_PASSWORD='Ictjc260@'
+# EMAI_HOST_USER=''
+# EMAIL_HOST_PASSWORD=''
 # EMAIL_USE_TLS= True
